@@ -8544,20 +8544,3 @@ p-multiselect.ng-dirty.ng-invalid .p-multiselect:not(.p-disabled).p-focus {
 .backend-deleted-row:hover {
   background-color: rgba(240, 240, 240, 0.25) !important;
 }
-
-.border {
-  border: 1px solid #e5e5e5;
-}
-
-border-dark {
-  border-color: #607d8b;
-}
-
-.product-price {
-  color: #fa0956;
-  font-weight: bold;
-}
-
-.rating {
-  color: gold;
-}

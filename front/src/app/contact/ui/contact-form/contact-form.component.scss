@@ -1,0 +1,53 @@
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 50%;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+textarea {
+  height: 200px;
+}
+
+input,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #ad3ba4;
+  outline: none;
+}
+
+.text-error {
+  color: red;
+  margin: 6px 0 15px 0;
+  display: block;
+}
+
+button {
+  background: #bd8ccf;
+}
+
+.loader {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #af4c65;
+  text-align: center;
+  font-weight: 600;
+}

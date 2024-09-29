@@ -1,30 +1,31 @@
 <div class="cart">
   <h2>Panier</h2>
   <table>
-      <thead>
-          <tr>
-              <th>Produit</th>
-              <th>Quantité</th>
-              <th>Prix</th>
-              <th>Total</th>
-          </tr>
-      </thead>
-      <tbody>
-          @for (cartItem of items; track cartItem; let idx = $index) {
-              <tr>
-                  <td>{{ cartItem.productName }}
-                    <button (click)="removeItem(cartItem.productId)" class="del-item">Supprimer</button>
-                  </td>
-                  <td>{{ cartItem.quantity }}</td>
-                  <td>{{ cartItem.price }} €</td>
-                  <td>{{ cartItem.price * cartItem.quantity }} €</td>
-              </tr>
-          }
-          <tr>
-            <td colspan="3" class="total text-right">Total : </td>
-            <td class="total">{{ total }} €</td>
-          </tr>
-      </tbody>
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (cartItem of items; track cartItem; let idx = $index) {
+      <tr>
+        <td>{{ cartItem.productName }}
+          <button (click)="removeItem(cartItem.productId)" class="del-item">Supprimer</button>
+        </td>
+        <td> <input type="number" [(ngModel)]="cartItem.quantity" min="1" (change)="updateCartItemQuantity(cartItem)" />
+        </td>
+        <td>{{ cartItem.price }} €</td>
+        <td>{{ cartItem.price * cartItem.quantity }} €</td>
+      </tr>
+      }
+      <tr>
+        <td colspan="3" class="total text-right">Total : </td>
+        <td class="total">{{ total }} €</td>
+      </tr>
+    </tbody>
   </table>
   <button (click)="clearCart()" class="clear-cart">Clear Cart</button>
 </div>

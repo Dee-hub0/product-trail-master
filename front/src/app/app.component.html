@@ -6,6 +6,8 @@
         {{ title }}
     </div>
     <div class="p-toolbar-group-end">
+        <div *ngIf="successMessage" class="text-success">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="text-error">{{ errorMessage }}</div>
         <div class="cart-icon">
             <i class="fas fa-shopping-cart"></i>
             <span class="badge">{{ cartItemsCount }}</span> <!-- Badge for quantity -->

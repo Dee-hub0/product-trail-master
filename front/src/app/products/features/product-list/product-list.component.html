@@ -1,40 +1,53 @@
 <h1 class="text-center">Liste des produits</h1>
 
-<p-button label="Créer produit" (onClick)="onCreate()" class="block text-center"/>
+<p-button label="Créer produit" (onClick)="onCreate()" class="block text-center" />
 
-<p-dataView #dv [value]="products()">
+<!-- Pagination controls -->
+<nav>
+    <ul class="pagination">
+        <li [class.disabled]="page === 1">
+            <a (click)="changePage(page - 1)" aria-label="Previous">&laquo;</a>
+        </li>
+        <li *ngFor="let p of [].constructor(getTotalPages()); let i = index" [class.active]="i + 1 === page">
+            <a (click)="changePage(i + 1)">{{ i + 1 }}</a>
+        </li>
+        <li [class.disabled]="page === getTotalPages()">
+            <a (click)="changePage(page + 1)" aria-label="Next">&raquo;</a>
+        </li>
+    </ul>
+</nav>
+<p-dataView #dv [value]="paginatedProducts">
     <ng-template pTemplate="list" let-products>
-        @for (product of products; track product) {
+        @for (product of paginatedProducts; track product) {
 
-            <p-card class="block mb-2">
-                <img class="block border border-dark mb-2" ngSrc="{{imagesPath + product.image}}" (error)="handleImgError($event)" width="200" height="200" />
-                <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
-                <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
-                <span class="product-price">{{ product.price.toFixed(2) }} €</span>
+        <p-card class="block mb-2">
+            <img class="block border border-dark mb-2" ngSrc="{{imagesPath + product.image}}"
+                (error)="handleImgError($event)" width="200" height="200" />
+            <span class="font-medium text-secondary text-sm">{{ product.category }}</span>
+            <div class="text-lg font-medium text-900 mt-2">{{ product.name }}</div>
+            <span class="product-price">{{ product.price.toFixed(2) }} €</span>
 
-                <div class="rating">
-                      @for (star of  [].constructor(5); track idx; let idx = $index, e = $even) {
-                        {{ idx < product.rating ? '&#9733;' : '&#9734;' }}
-                        }
-                  </div>
-                  <button (click)="addToCart(product)" class="add-to-cart">Ajouter au panier</button>
-                <ng-template pTemplate="footer">
-                    <div class="flex gap-3 mt-1">
-                        <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)"/>
-                        <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
-                    </div>
-                </ng-template>
-            </p-card>
+            <div class="rating">
+                @for (star of [].constructor(5); track idx; let idx = $index, e = $even) {
+                {{ idx < product.rating ? '&#9733;' : '&#9734;' }} } </div>
+
+                <div>
+                    <input type="number" [(ngModel)]="product.quantity" min="1" #quantityInput />
+                    <button (click)="addToCart(product, quantityInput.value)" class="add-to-cart">Ajouter au panier</button>
+                </div>
+                    <ng-template pTemplate="footer">
+                        <div class="flex gap-3 mt-1">
+                            <p-button label="Modifier" severity="secondary" (onClick)="onUpdate(product)" />
+                            <p-button label="Supprimer" severity="danger" (onClick)="onDelete(product)" />
+                        </div>
+                    </ng-template>
+        </p-card>
         }
     </ng-template>
 </p-dataView>
 
-<p-dialog [(visible)]="isDialogVisible"
-    [style]="{ width: '50vw' }"
-    header="Ajout/Edition produit">
-    <app-product-form
-        [product]="editedProduct()"
-        (save)="onSave($event)"
-        (cancel)="onCancel()"
-    />
+
+
+<p-dialog [(visible)]="isDialogVisible" [style]="{ width: '50vw' }" header="Ajout/Edition produit">
+    <app-product-form [product]="editedProduct()" (save)="onSave($event)" (cancel)="onCancel()" />
 </p-dialog>

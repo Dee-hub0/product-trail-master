@@ -1,4 +1,6 @@
 import { Component, OnInit, inject, signal, Output, EventEmitter } from "@angular/core";
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Product } from "app/products/data-access/product.model";
 import { ProductsService } from "app/products/data-access/products.service";
 import { ProductFormComponent } from "app/products/ui/product-form/product-form.component";
@@ -31,7 +33,7 @@ const emptyProduct: Product = {
   templateUrl: "./product-list.component.html",
   styleUrls: ["./product-list.component.scss"],
   standalone: true,
-  imports: [DataViewModule, CardModule, ButtonModule, DialogModule, ProductFormComponent, NgOptimizedImage],
+  imports: [DataViewModule, CardModule, CommonModule, ButtonModule, DialogModule, ProductFormComponent, NgOptimizedImage, FormsModule],
 })
 export class ProductListComponent implements OnInit {
 
@@ -48,9 +50,17 @@ export class ProductListComponent implements OnInit {
   public readonly editedProduct = signal<Product>(emptyProduct);
   public imagesPath: string = 'assets/images/';
   defaultImageName: string = 'product-default.png';
+  
+  // Pagination and filtering
+  public page: number = 1; // Current page
+  public pageSize: number = 8; // Number of products per page
+  public paginatedProducts: Product[] = [];
+  public totalProductsCount: number = 0;
 
   ngOnInit() {
-    this.productsService.get().subscribe();
+    this.productsService.get().subscribe(() => {
+      this.updatePaginatedProducts();
+    });
   }
 
   public handleImgError(event: Event) {
@@ -90,10 +100,41 @@ export class ProductListComponent implements OnInit {
   private closeDialog() {
     this.isDialogVisible = false;
   }
-
-  public addToCart(product: Product) {
-    this.cartService.addItem(product);
+  
+  public addToCart(product: Product, quantity: string) {
+    const newQuantity = Math.max(1, Number(quantity)); // Ensure quantity is at least 1 and a number
+    this.cartService.addItem(product, newQuantity).subscribe({
+      next: (message) => {
+          console.log(message);
+      },
+      error: (error) => {
+          console.error(error);
+      }
+  });
+  
     this.itemAdded.emit();
   }
+
+  // Method to update paginated products  
+  private updatePaginatedProducts() {
+    const filteredProducts = this.products();
+    this.totalProductsCount = filteredProducts.length; // Update total product count
+    const startIndex = (this.page - 1) * this.pageSize;
+    this.paginatedProducts = filteredProducts.slice(startIndex, startIndex + this.pageSize);
+  }
+
+  // Method to change pages
+  public changePage(newPage: number) {
+    if (newPage < 1 || newPage > this.getTotalPages()) {
+      return;
+    }
+    this.page = newPage;
+    this.updatePaginatedProducts();
+  }
+
+  public getTotalPages(): number {
+    return Math.ceil(this.totalProductsCount / this.pageSize);
+  }
+
 
 }

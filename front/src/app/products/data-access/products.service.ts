@@ -51,4 +51,18 @@ import { catchError, Observable, of, tap } from "rxjs";
             tap(() => this._products.update(products => products.filter(product => product.id !== productId))),
         );
     }
+
+    public getPaginatedProducts(page: number, pageSize: number, searchTerm: string = ''): Product[] {
+        const filteredProducts = this._products().filter(product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        const startIndex = (page - 1) * pageSize;
+        return filteredProducts.slice(startIndex, startIndex + pageSize);
+    }
+
+    public getTotalProductsCount(searchTerm: string = ''): number {
+        return this._products().filter(product =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+        ).length;
+    }
 }

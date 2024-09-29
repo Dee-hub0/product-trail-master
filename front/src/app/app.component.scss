@@ -2,6 +2,7 @@
     overflow: hidden;
     height: 100%;
 }
+
 .cart-icon {
     position: relative;
     display: inline-block;
@@ -9,13 +10,19 @@
 
     .badge {
         position: absolute;
-        top: -5px; // Adjust position
-        right: -10px; // Adjust position
-        background-color: #e74c3c;
+        top: -34px;
+        right: -25px;
+        background-color: #f82fb8;
         color: white;
         border-radius: 50%;
         padding: 4px 6px;
         font-size: 12px;
         font-weight: bold;
     }
+}
+.text-success{
+    color:green
+}
+.text-success{
+    color:red
 }
