@@ -1,0 +1,4 @@
+<h1 class="text-center">Contactez-nous</h1>
+<app-contact-form (formSubmitted)="onFormSubmit($event)"></app-contact-form>
+<p *ngIf="successMessage">{{ successMessage }}</p>
+<p *ngIf="errorMessage">{{ errorMessage }}</p>
