@@ -2,9 +2,11 @@
 
 ### Prérequis:
 
-PHP 8.2.0
-Symfony 7.1.5
-Nodejs 20.12.12
+- PHP 8.2.0
+
+- Symfony 7.1.5
+
+- Nodejs 20.12.12
 
 ### Instructions
 
