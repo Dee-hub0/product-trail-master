@@ -10,7 +10,8 @@ Nodejs 20.12.12
 
 - Colnez le projet 'https://github.com/Dee-hub0/product-trail-master.git'
 
-- Mettez-vous sur sur le dossier /front et executez 'npm install' pour l'installation des dépendences
+- Mettez-vous sur sur le dossier /front et executez :
+ `npm install` `npm update` pour l'installation des dépendences
 
 - Depuis le terminal, se positionner sur le dossier /back et, executez la commande suivante pour créer la BD
   `php bin/console doctrine:database:create`
