@@ -118,8 +118,9 @@ export class ProductListComponent implements OnInit {
   // Method to update paginated products  
   private updatePaginatedProducts() {
     const filteredProducts = this.products();
-    this.totalProductsCount = filteredProducts.length; // Update total product count
+    this.totalProductsCount = filteredProducts.length || 0;
     const startIndex = (this.page - 1) * this.pageSize;
+    const memberProductList = 
     this.paginatedProducts = filteredProducts.slice(startIndex, startIndex + this.pageSize);
   }
 

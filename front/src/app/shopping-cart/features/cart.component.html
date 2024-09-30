@@ -15,7 +15,7 @@
         <td>{{ cartItem.productName }}
           <button (click)="removeItem(cartItem.productId)" class="del-item">Supprimer</button>
         </td>
-        <td> <input type="number" [(ngModel)]="cartItem.quantity" min="1" (change)="updateCartItemQuantity(cartItem)" />
+        <td> <input type="number" class="qty-input" [(ngModel)]="cartItem.quantity" min="1" (change)="updateCartItemQuantity(cartItem)" />
         </td>
         <td>{{ cartItem.price }} €</td>
         <td>{{ cartItem.price * cartItem.quantity }} €</td>
@@ -27,5 +27,5 @@
       </tr>
     </tbody>
   </table>
-  <button (click)="clearCart()" class="clear-cart">Clear Cart</button>
+  <button (click)="clearCart()" class="clear-cart">Vider le panier</button>
 </div>

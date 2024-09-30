@@ -32,7 +32,7 @@
                 {{ idx < product.rating ? '&#9733;' : '&#9734;' }} } </div>
 
                 <div>
-                    <input type="number" [(ngModel)]="product.quantity" min="1" #quantityInput />
+                    <input type="number" class="qty-input" min="1" #quantityInput />
                     <button (click)="addToCart(product, quantityInput.value)" class="add-to-cart">Ajouter au panier</button>
                 </div>
                     <ng-template pTemplate="footer">
